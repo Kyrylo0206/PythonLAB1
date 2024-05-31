@@ -19,39 +19,38 @@ def plot_square(vertices, ax, title):
 
 fig, axs = plt.subplots(1, 2, figsize=(12, 6))
 
-# Масштабування з використанням OpenCV
+# Corrected scaling matrix for cv2.transform (2x3 matrix)
 scaling_matrix = np.array([
-    [2, 0],
-    [0, 0.5]
+    [2, 0, 0],
+    [0, 0.5, 0]
 ], dtype=np.float32)
+
 scaled_vertices = cv2.transform(np.array([square_vertices], dtype=np.float32), scaling_matrix)[0]
 plot_square(scaled_vertices, axs[0], "Масштабування (OpenCV)")
 
-# Обертання з використанням OpenCV
-theta = 45  # градуси
+theta = 45
 rotation_matrix = cv2.getRotationMatrix2D((0.5, 0.5), theta, 1.0)
 rotated_vertices = cv2.transform(np.array([square_vertices], dtype=np.float32), rotation_matrix[:, :2])[0]
 plot_square(rotated_vertices, axs[1], "Обертання (OpenCV)")
 
 plt.show()
 
-# Завантаження зображення
-image = cv2.imread('image.jpg')
-image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # Перетворення BGR у RGB для коректного відображення з matplotlib
+image = cv2.imread('images.png')
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-# Масштабування
+# Corrected scale matrix and output size
 scale_matrix = np.array([
     [0.5, 0, 0],
     [0, 0.5, 0]
 ], dtype=np.float32)
-scaled_image = cv2.warpAffine(image, scale_matrix, (image.shape[1] // 2, image.shape[0] // 2))
 
-# Обертання
-theta = 45  # градуси
+# Correct size for the scaled image
+scaled_image = cv2.warpAffine(image, scale_matrix, (int(image.shape[1] * 0.5), int(image.shape[0] * 0.5)))
+
+theta = 45  # degrees
 rotation_matrix = cv2.getRotationMatrix2D((image.shape[1] // 2, image.shape[0] // 2), theta, 1)
 rotated_image = cv2.warpAffine(image, rotation_matrix, (image.shape[1], image.shape[0]))
 
-# Візуалізація результатів
 fig, axs = plt.subplots(1, 3, figsize=(18, 6))
 axs[0].imshow(image)
 axs[0].set_title('Оригінальне зображення')
