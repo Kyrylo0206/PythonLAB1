@@ -17,9 +17,9 @@ def plot_square(vertices, ax, title):
     ax.set_ylabel('Y')
     ax.axis('equal')
 
+# Створюємо підграфіки для відображення результатів
 fig, axs = plt.subplots(1, 2, figsize=(12, 6))
 
-# Corrected scaling matrix for cv2.transform (2x3 matrix)
 scaling_matrix = np.array([
     [2, 0, 0],
     [0, 0.5, 0]
@@ -27,7 +27,7 @@ scaling_matrix = np.array([
 
 scaled_vertices = cv2.transform(np.array([square_vertices], dtype=np.float32), scaling_matrix)[0]
 plot_square(scaled_vertices, axs[0], "Масштабування (OpenCV)")
-
+# Створюємо матрицю обертання навколо центру квадрата з кутом theta
 theta = 45
 rotation_matrix = cv2.getRotationMatrix2D((0.5, 0.5), theta, 1.0)
 rotated_vertices = cv2.transform(np.array([square_vertices], dtype=np.float32), rotation_matrix[:, :2])[0]
@@ -38,13 +38,11 @@ plt.show()
 image = cv2.imread('images.png')
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-# Corrected scale matrix and output size
 scale_matrix = np.array([
     [0.5, 0, 0],
     [0, 0.5, 0]
 ], dtype=np.float32)
 
-# Correct size for the scaled image
 scaled_image = cv2.warpAffine(image, scale_matrix, (int(image.shape[1] * 0.5), int(image.shape[0] * 0.5)))
 
 theta = 45  # degrees

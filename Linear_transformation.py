@@ -12,8 +12,9 @@ cube_vertices = np.array([
     [0, 1, 1]
 ])
 def plot_cube(vertices, title):
-    fig, axs = plt.subplots(1, 3, figsize=(18, 6))
+    fig, axs = plt.subplots(1, 3, figsize=(18, 6)) # Створюємо три підграфіки в одному ряду
 
+    # Перша проекція (XY площина)
     axs[0].scatter(vertices[:, 0], vertices[:, 1])
     for i in range(len(vertices)):
         for j in range(i + 1, len(vertices)):
@@ -24,6 +25,7 @@ def plot_cube(vertices, title):
     axs[0].set_ylabel('Y')
     axs[0].axis('equal')
 
+    # Друга проекція (XZ площина)
     axs[1].scatter(vertices[:, 0], vertices[:, 2])
     for i in range(len(vertices)):
         for j in range(i + 1, len(vertices)):
@@ -34,6 +36,7 @@ def plot_cube(vertices, title):
     axs[1].set_ylabel('Z')
     axs[1].axis('equal')
 
+    # Третя проекція (YZ площина)
     axs[2].scatter(vertices[:, 1], vertices[:, 2])
     for i in range(len(vertices)):
         for j in range(i + 1, len(vertices)):
@@ -45,7 +48,7 @@ def plot_cube(vertices, title):
     axs[2].axis('equal')
 
     plt.show()
-
+# Масштабування куба
 scaling_matrix = np.array([
     [2, 0, 0],
     [0, 1, 0],
@@ -53,7 +56,7 @@ scaling_matrix = np.array([
 ])
 scaled_vertices = cube_vertices @ scaling_matrix.T
 plot_cube(scaled_vertices, "Масштабування")
-
+#Поворот куба
 theta = np.pi / 4  # 45 градусів
 rotation_matrix = np.array([
     [np.cos(theta), -np.sin(theta), 0],

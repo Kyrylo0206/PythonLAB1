@@ -18,7 +18,7 @@ def plot_object(points, title):
     plt.figure(figsize=(5, 5))
     plt.plot(points[0, :], points[1, :], 'o-')
     plt.title(title)
-    plt.gca().set_aspect('equal', adjustable='box')
+    plt.gca().set_aspect('equal', adjustable='box') # Задаємо однаковий масштаб по обом осям
     plt.grid(True)
     plt.show()
 
@@ -28,12 +28,12 @@ def plot_fish(coords, title):
     fig, ax = plt.subplots()
     ax.plot(x_coords, y_coords, marker='o', linestyle='-', color='black')
     ax.fill_between(x_coords, y_coords, color='skyblue', alpha=0.3)
-    ax.grid(True, which='both')
-    ax.axhline(y=0, color='k')
-    ax.axvline(x=0, color='k')
-    ax.set_aspect('equal', 'box')
-    plt.xlim(-6, 6)
-    plt.ylim(-7, 4)
+    ax.grid(True, which='both')  # Додаємо сітку на графік
+    ax.axhline(y=0, color='k')  # Додаємо горизонтальну лінію
+    ax.axvline(x=0, color='k')  # Додаємо вертикальну лінію
+    ax.set_aspect('equal', 'box')  # Задаємо однаковий масштаб по обом осям
+    plt.xlim(-6, 6)  # Задаємо межі по осі X
+    plt.ylim(-7, 4)  # Задаємо межі по осі Y
     plt.title(title)
     plt.show()
 
@@ -44,7 +44,7 @@ def rotate(points, angle):
         [np.cos(theta), -np.sin(theta)],
         [np.sin(theta), np.cos(theta)]
     ])
-    return np.dot(rotation_matrix, points)
+    return np.dot(rotation_matrix, points)# Повертаємо результат множення матриці обертання на вектор точок
 
 
 def scale(points, scale_factor):
@@ -84,7 +84,7 @@ def shear(points, shear_factor, axis):
 
 
 def custom_transform(points, transform_matrix):
-    return np.dot(transform_matrix, points)
+    return np.dot(transform_matrix, points)# Повертаємо результат множення матриці трансформації на вектор точок
 
 
 plot_object(points_1, "Original Object")
